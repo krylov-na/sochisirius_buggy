@@ -2,7 +2,7 @@
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
     <arg name="rtabmapviz" value="false" />
     <arg name="rviz" value="false" />
-    <arg name="database_path" value="~/.ros/rtabmap.db"/>
+    <arg name="database_path" value="/media/ubuntu/88ce87ac-0e19-49dc-a768-962b4116a463/rtabmap.db"/>
     <arg name="rtabmap_args" value="--delete_db_on_start"/>
     <arg name="approx_sync" value="true" />
     <arg name="depth_topic" value="/zed/depth/depth_registered" />
@@ -10,7 +10,7 @@
     <arg name="camera_info_topic" value="/zed/rgb/camera_info" />
     <arg name="odom_topic" value="/odometry/filtered" />
     <arg name="visual_odometry" value="false" />
-    <arg name="publish_tf" value="false" />
+<!--    <arg name="publish_tf" value="false" />-->
   </include>
 </launch>
 
