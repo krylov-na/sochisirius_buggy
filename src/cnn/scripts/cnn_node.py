@@ -23,7 +23,7 @@ class CNN():
 
         rospack = rospkg.RosPack()
 
-        model_path = rospack.get_path('cnn') + model_path
+        model_path = rospack.get_path('cnn') + '/' + model_path
 
         self.model = load_model(model_path)
 
