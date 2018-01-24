@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find buggy_2dnav)/launch/buggy_configuration.launch"/>
+  <include file="$(find buggy_2dnav)/launch/move_base.launch"/>
+</launch>
