@@ -21,7 +21,6 @@ find_package(catkin REQUIRED COMPONENTS
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
 # catkin_python_setup()
-]
 
 ###################################
 ## catkin specific configuration ##
@@ -57,6 +56,6 @@ include_directories(
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
 install(PROGRAMS
-  scripts/my_python_script
+  scripts/cnn_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
