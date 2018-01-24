@@ -9,19 +9,6 @@ from sensor_msgs.msg import Image
 
 class CNN():
     def __init__(self):
-        self.sub = rospy.Subscriber(
-            rospy.get_param('/cnn/sub_topic', '/cnn/image'),
-            Image, self._callback)
-
-        self.pub = rospy.Publisher(
-            rospy.get_param('/cnn/pub_topic', '/cnn/output'),
-            Image, queue_size=1)
-
-        self.imgpub = rospy.Publisher(
-            rospy.get_param('/cnn/imgpub_topic', '/cnn/image_output'),
-            Image, queue_size=1)
-
-        rospy.init_node('cnn', anonymous=True)
 
         import tensorflow as tf
         from keras.backend.tensorflow_backend import set_session
@@ -39,6 +26,20 @@ class CNN():
         model_path = rospack.get_path('cnn') + model_path
 
         self.model = load_model(model_path)
+
+        self.sub = rospy.Subscriber(
+            rospy.get_param('/cnn/sub_topic', '/cnn/image'),
+            Image, self._callback)
+
+        self.pub = rospy.Publisher(
+            rospy.get_param('/cnn/pub_topic', '/cnn/output'),
+            Image, queue_size=1)
+
+        self.imgpub = rospy.Publisher(
+            rospy.get_param('/cnn/imgpub_topic', '/cnn/image_output'),
+            Image, queue_size=1)
+
+        rospy.init_node('cnn', anonymous=True)
 
         rospy.spin()
     

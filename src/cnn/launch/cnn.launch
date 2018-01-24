@@ -1,6 +1,5 @@
 <launch>
-  <!-- joy node -->
-  <node respawn="false" pkg="cnn" type="cnn_node" name="cnn" >
+  <node respawn="false" pkg="cnn" type="cnn_node.py" name="cnn" >
     <param name="sub_topic" value="/zed/rgb/image_rect_color" />
     <param name="model_name" value="model_j_nd.h5" />
   </node>
