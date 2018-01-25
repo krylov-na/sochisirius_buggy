@@ -26,6 +26,7 @@ class CNN():
         model_path = rospack.get_path('cnn') + '/' + model_path
 
         self.model = load_model(model_path)
+        self.model._make_predict_function()
 
         self.sub = rospy.Subscriber(
             rospy.get_param('/cnn/sub_topic', '/cnn/image'),
@@ -42,7 +43,7 @@ class CNN():
         rospy.init_node('cnn', anonymous=True)
 
         rospy.spin()
-    
+
     def _callback(self, image):
         data = ros_numpy.numpify(image)
 
@@ -54,20 +55,22 @@ class CNN():
 
         prediction = self.model.predict(data, batch_size=1)[0] * 255
 
-        prediction = imresize(prediction, (shape[0], shape[1]))
-
         prediction = prediction.astype(np.uint8)
 
-        msg = ros_numpy.msgify(Image, prediction)
-
-        self.pub.publish(msg)
+        prediction = prediction[:,:,0]
 
         blanks = np.zeros_like(prediction).astype(np.uint8)
         lane_drawn = np.dstack((blanks, prediction, blanks))
 
+        prediction = imresize(prediction, (shape[0], shape[1]))
+
+        msg = ros_numpy.msgify(Image, prediction, encoding='mono8')
+
+        self.pub.publish(msg)
+
         outimg = cv2.addWeighted(data[0], 1, lane_drawn, 1, 0)
 
-        imgmsg = ros_numpy.msgify(Image, outimg)
+        imgmsg = ros_numpy.msgify(Image, outimg, encoding='rgb8')
 
         self.imgpub.publish(imgmsg)
 
