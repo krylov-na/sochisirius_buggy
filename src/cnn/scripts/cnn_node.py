@@ -49,6 +49,8 @@ class CNN():
 
         shape = data.shape
 
+        original = data
+
         data = imresize(data, (80, 160, 3))
 
         data = data[None,:,:,:]
@@ -59,18 +61,16 @@ class CNN():
 
         prediction = prediction[:,:,0]
 
+        prediction = imresize(prediction, (shape[0], shape[1]))
+
         blanks = np.zeros_like(prediction).astype(np.uint8)
         lane_drawn = np.dstack((blanks, prediction, blanks))
-
-        prediction = imresize(prediction, (shape[0], shape[1]))
 
         msg = ros_numpy.msgify(Image, prediction, encoding='mono8')
 
         self.pub.publish(msg)
 
-        outimg = cv2.addWeighted(data[0], 1, lane_drawn, 1, 0)
-
-        outimg = imresize(outimg, (shape[0], shape[1], 3))
+        outimg = cv2.addWeighted(original, 1, lane_drawn, 1, 0)
 
         imgmsg = ros_numpy.msgify(Image, outimg, encoding='rgb8')
 
