@@ -70,6 +70,8 @@ class CNN():
 
         outimg = cv2.addWeighted(data[0], 1, lane_drawn, 1, 0)
 
+        outimg = imresize(outimg, (shape[0], shape[1], 3))
+
         imgmsg = ros_numpy.msgify(Image, outimg, encoding='rgb8')
 
         self.imgpub.publish(imgmsg)
