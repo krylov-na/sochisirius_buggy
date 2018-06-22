@@ -1,0 +1,21 @@
+<launch>
+    <node pkg="linedetection" type="linedetection_node" name="linedetection">
+	<param name="imageTopic" value="/zed/rgb/image_rect_color" />
+        <param name="gridTopic" value="/rtabmap/grid_map" />
+        <param name="odometryTopic" value="/odometry_filtered" />
+        <param name="outputTopic" value="/linedetection/map" />
+        <param name="imageOutTopic" value="/linedetection/image" />
+	<param name="realWidth" value="2" />
+        <param name="realHeight" value="2" />
+	<param name="frequency" value="30" />
+        <param name="xMat" value="267" />
+        <param name="yMat" value="322" />
+        <param name="widthMat" value="861" />
+        <param name="heightMat" value="217" />
+	<param name="lengthReform" value="215" />
+	<param name="gamma" value="0.9" />
+	<param name="whiteStill" value="235" />
+	<param name="minSizeContours" value="10" />
+	<param name="minAngleLine" value="25" />
+    </node>
+</launch>
